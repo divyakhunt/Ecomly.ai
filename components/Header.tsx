@@ -218,16 +218,18 @@ const Header: React.FC = () => {
                 <AnimatePresence>
                   {menuOpen && !isLoading && (
                     <motion.div
+                      layout   // ✅ add this
                       initial={{ opacity: 0, y: 15, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 15, scale: 0.95, transition: { duration: 0.15, ease: 'easeIn' } }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                      className="absolute right-0 mt-3 w-60 origin-top-right bg-slate-950 border border-slate-800 rounded-xl shadow-2xl shadow-blue-500/10 z-50 overflow-hidden"
+                      className="absolute right-0 mt-3 w-60 min-h-[100px] origin-top-right bg-slate-950 border border-slate-800 rounded-xl shadow-2xl shadow-blue-500/10 z-50 overflow-hidden"
                     >
-                       <AuthSection onLinkClick={() => setMenuOpen(false)} />
+                      <AuthSection onLinkClick={() => setMenuOpen(false)} />
                     </motion.div>
                   )}
                 </AnimatePresence>
+
               </div>
 
               {/* Mobile Hamburger Button */}
