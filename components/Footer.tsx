@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
         <p>&copy; {new Date().getFullYear()} E-Commerce AI Toolkit. All rights reserved.</p>
         <p className="mt-1">
-          Designed and developed by{' '}
+          Designed and Developed by{' '}
           <a
             href="https://github.com/DivyaKhunt" // Replace with your actual GitHub profile URL
             target="_blank"
