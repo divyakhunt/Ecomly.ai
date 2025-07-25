@@ -3,6 +3,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { Icon } from './Icon';
 import { useAuth } from '../hooks/useAuth';
+import { useToast } from '../hooks/useToast';
 
 const navLinks = [
   { to: '/', label: 'Home', icon: 'home' },
@@ -40,15 +41,22 @@ const authMenuItemVariants: Variants = {
   }
 };
 
-const AuthSection: React.FC<{ onLinkClick: () => void }> = ({ onLinkClick }) => {
+const AuthSection: React.FC<{ onLinkClick: () => void; isMobile?: boolean }> = ({ onLinkClick, isMobile = false }) => {
     const { isAuthenticated, user, signOut } = useAuth();
     const navigate = useNavigate();
+    const { addToast } = useToast();
 
     const handleSignOut = async () => {
         await signOut();
-        onLinkClick();
-        navigate('/');
+        addToast("You have been signed out.", "info");
+        
+         onLinkClick(); // close dropdown/menu first
+
+    setTimeout(() => {
+      navigate('/'); // then go to homepage
+    }, 50);
     };
+
 
     const linkClasses = "w-full text-left flex items-center gap-3.5 px-4 py-2.5 text-sm text-slate-300 hover:bg-blue-500/10 hover:text-blue-300 rounded-md transition-all duration-200";
 
