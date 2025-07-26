@@ -13,6 +13,7 @@ const SignUp: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   
   const [isLoading, setIsLoading] = useState(false);
   const { sendOtp, signUp, googleSignIn } = useAuth();
@@ -50,28 +51,40 @@ const SignUp: React.FC = () => {
     setIsLoading(true);
     try {
       await signUp({ email, password, firstName, lastName });
-      // ...success logic...
+      addToast('Account created successfully!', 'success');
+      navigate('/'); // or wherever you want to redirect after signup
     } catch (error) {
       let errorMessage = 'An unknown error occurred.';
       if (error instanceof Error) {
         if (error.message.includes('auth/email-already-in-use')) {
-          errorMessage = 'User already exists';
+          errorMessage = 'An account with this email already exists.';
+        } else if (error.message.includes('auth/invalid-email')) {
+          errorMessage = 'Please enter a valid email address.';
+        } else if (error.message.includes('auth/weak-password')) {
+          errorMessage = 'Password must be at least 6 characters long.';
+        } else if (error.message.includes('auth/network-request-failed')) {
+          errorMessage = 'Network error. Please check your internet connection.';
+        } else if (error.message.includes('auth/internal-error')) {
+          errorMessage = 'Internal server error. Please try again later.';
+        } else if (error.message.includes('auth/operation-not-allowed')) {
+          errorMessage = 'Sign up is currently disabled. Please contact support.';
         } else {
           errorMessage = error.message;
         }
       }
       addToast(errorMessage, 'error');
+    } finally {
+      setIsLoading(false); // <-- Add this line
     }
   };
   
     const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
+        sessionStorage.setItem('authRedirectPath', '/');
         await googleSignIn();
-        addToast('Signed up with Google successfully!', 'success');
-        navigate('/');
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred during Google sign-in.';
         addToast(errorMessage, 'error');
         setIsLoading(false);
     }
@@ -116,8 +129,25 @@ const SignUp: React.FC = () => {
             <input name="lastName" type="text" required value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" className="w-full px-3 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500 text-slate-200 placeholder-slate-500 transition-all"/>
         </div>
         <div className="relative">
-            <Icon name="lock" className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
-            <input id="password" name="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Create Password" className="w-full pl-10 pr-3 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500 text-slate-200 placeholder-slate-500 transition-all"/>
+            <Icon name="lock" className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500 pointer-events-none" />
+            <input
+              id="password"
+              name="password"
+              type={isPasswordVisible ? 'text' : 'password'}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Create Password"
+              className="w-full pl-10 pr-10 py-2.5 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-blue-500 text-slate-200 placeholder-slate-500 transition-all"
+            />
+             <button
+                type="button"
+                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-slate-300 transition-colors z-10"
+                aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+            >
+                <Icon name={isPasswordVisible ? 'eye-off' : 'eye'} className="h-5 w-5" />
+            </button>
         </div>
          <div>
           <motion.button

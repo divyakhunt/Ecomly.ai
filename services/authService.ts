@@ -58,7 +58,7 @@ export const authService = {
         return manageUserProfile(result.user);
     },
 
-    signUp: async (data: { email: string; firstName: string; lastName: string; password?: string }): Promise<User> => {
+    signUp: async (data: { email: string; firstName: string; lastName: string; password?: string }): Promise<void> => {
         if (!data.password) throw new Error("Password is required for signup.");
 
         const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
