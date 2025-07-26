@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer className="relative mt-32 border-t border-slate-800/50">
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
       <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
-        <p>&copy; {new Date().getFullYear()} E-Commerce AI Toolkit. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} E-Commerce AI Kit. All rights reserved.</p>
         <p className="mt-1">
           Designed and Developed by{' '}
           <a

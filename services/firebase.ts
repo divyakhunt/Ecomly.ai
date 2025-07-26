@@ -12,15 +12,14 @@ import { getFunctions } from 'firebase/functions';
 // 3. Copy the entire object and paste it here, replacing the example configuration below.
 // ====================================================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyC-76r_q6I4TX3scx7mDx6ocGWSTtuMSX8",
-  authDomain: "ecomly-ai.firebaseapp.com",
-  projectId: "ecomly-ai",
-  storageBucket: "ecomly-ai.firebasestorage.app",
-  messagingSenderId: "891344479099",
-  appId: "1:891344479099:web:e37507bb4e4c879b0e13de",
-  measurementId: "G-QYXKPLM12J"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
