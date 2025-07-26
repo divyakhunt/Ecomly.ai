@@ -95,12 +95,14 @@ const ForgotPassword = () => {
               </motion.div>
             </motion.div>
             
-            <motion.p
-              variants={itemVariants}
-              className="text-slate-300 pt-2"
-            >
+            <motion.div variants={itemVariants} className="text-slate-300 pt-2 space-y-2">
+            <p>
               A password reset link has been sent to <strong className="text-white font-semibold">{email}</strong>. It may take a few minutes to arrive.
-            </motion.p>
+            </p>
+            <p className="text-sm text-slate-400 italic pt-3">
+  Didn't get the email? Check your spam or junk folder.
+</p>
+          </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
