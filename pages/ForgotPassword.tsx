@@ -100,8 +100,8 @@ const ForgotPassword = () => {
               A password reset link has been sent to <strong className="text-white font-semibold">{email}</strong>. It may take a few minutes to arrive.
             </p>
             <p className="text-sm text-slate-400 italic pt-3">
-  Didn't get the email? Check your spam or junk folder.
-</p>
+              Didn't get the email? Check your spam or junk folder.
+            </p>
           </motion.div>
           </motion.div>
         )}

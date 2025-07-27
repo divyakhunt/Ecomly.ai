@@ -11,7 +11,7 @@ const navLinks = [
   { to: '/image-generator', label: 'Image Gen', icon: 'image' },
   { to: '/background-remover', label: 'BG Remover', icon: 'background' },
   { to: '/make-my-brand', label: 'Brand Maker', icon: 'tag' },
-  { to: '/product-summary', label: 'Product Lister', icon: 'summary' },    
+  { to: '/product-summary', label: 'Product Lister', icon: 'summary' },
   { to: '/label-cropper', label: 'Label Cropper', icon: 'crop' },
 ];
 
@@ -49,8 +49,8 @@ const AuthSection: React.FC<{ onLinkClick: () => void; isMobile?: boolean }> = (
     const handleSignOut = async () => {
         await signOut();
         addToast("You have been signed out.", "info");
-        
-         onLinkClick(); // close dropdown/menu first
+
+          onLinkClick(); // close dropdown/menu first
 
     setTimeout(() => {
       navigate('/'); // then go to homepage
@@ -70,8 +70,8 @@ const AuthSection: React.FC<{ onLinkClick: () => void; isMobile?: boolean }> = (
                     </motion.div>
                     <div className="p-1.5">
                       <motion.button onClick={handleSignOut} className={linkClasses} variants={authMenuItemVariants}>
-                         <Icon name="logout" className="w-5 h-5 text-red-400"/>
-                         Sign Out
+                           <Icon name="logout" className="w-5 h-5 text-red-400"/>
+                           Sign Out
                       </motion.button>
                     </div>
                 </>
@@ -97,7 +97,7 @@ const AuthSection: React.FC<{ onLinkClick: () => void; isMobile?: boolean }> = (
 
 
 const Header: React.FC = () => {
-  const { isLoading } = useAuth();
+  const { isLoading, user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
     hidden: { y: -50, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } }
   };
-  
+
   const navVariants: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } }
@@ -116,7 +116,7 @@ const Header: React.FC = () => {
     hidden: { y: -20, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.3, ease: 'easeOut' } }
   };
-  
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -140,9 +140,27 @@ const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Function to generate avatar with first letter
+  const renderUserAvatar = () => {
+    if (user && user.photoURL) {
+      return (
+        <img src={user.photoURL} alt="User Avatar" className="h-full w-full object-cover rounded-full" />
+      );
+    } else if (user && user.firstName) {
+      const initial = user.firstName.charAt(0).toUpperCase();
+      const bgColor = 'bg-blue-600'; // You can make this dynamic based on user ID or a hash for variety
+      return (
+        <div className={`flex items-center justify-center h-full w-full rounded-full text-white font-semibold ${bgColor}`}>
+          {initial}
+        </div>
+      );
+    }
+    return <Icon name="user" className="h-5 w-5 text-slate-300"/>; // Default icon
+  };
+
   return (
     <>
-      <motion.header 
+      <motion.header
         variants={headerVariants}
         initial="hidden"
         animate="visible"
@@ -158,7 +176,7 @@ const Header: React.FC = () => {
             </div>
             <div className="flex items-center gap-2">
               {/* Desktop Navigation */}
-              <motion.nav 
+              <motion.nav
                 variants={navVariants}
                 initial="hidden"
                 animate="visible"
@@ -178,12 +196,12 @@ const Header: React.FC = () => {
                     >
                       {({ isActive }) => (
                         <>
-                          <motion.div 
+                          <motion.div
                             className="absolute inset-0 rounded-md transition-colors duration-300"
                             animate={{ backgroundColor: isActive ? 'rgba(30, 41, 59, 0.6)' : 'rgba(30, 41, 59, 0)' }}
                           ></motion.div>
                           <div className="absolute inset-0 rounded-md bg-slate-800/0 group-hover:bg-slate-800/40 transition-colors duration-300"></div>
-                          
+
                           <Icon name={link.icon as any} className="relative h-5 w-5 mr-2 transition-transform duration-300 group-hover:scale-110" />
                           <span className="relative">{link.label}</span>
                           {isActive && (
@@ -203,22 +221,23 @@ const Header: React.FC = () => {
 
               {/* Profile Menu (for both desktop and mobile) */}
               <div className="hidden md:block h-8 w-px bg-slate-700/50 ml-3"></div>
-              
+
               <div className="relative" ref={menuRef}>
                 <AnimatePresence mode="wait" initial={false}>
                   {isLoading ? (
                       <motion.div key="loader" className="w-9 h-9 shimmer-loader rounded-full" />
                   ) : (
                       <motion.div key="auth-button" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
-                          <motion.button 
-                              onClick={() => setMenuOpen(!menuOpen)} 
-                              className="flex items-center justify-center h-9 w-9 bg-slate-800 rounded-full border border-slate-700 hover:border-blue-500 transition-colors"
-                              animate={{ scale: menuOpen ? 1.1 : 1 }}
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.95 }}
-                          >
-                            <Icon name="user" className="h-5 w-5 text-slate-300"/>
-                          </motion.button>
+                            <motion.button
+                                onClick={() => setMenuOpen(!menuOpen)}
+                                className="flex items-center justify-center h-9 w-9 bg-slate-800 rounded-full border border-slate-700 hover:border-blue-500 transition-colors overflow-hidden"
+                                animate={{ scale: menuOpen ? 1.1 : 1 }}
+                                whileHover={{ scale: 1.1, borderColor: 'var(--color-blue-500)' }} // Smooth hover for scale and border color
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ type: 'spring', stiffness: 300, damping: 20 }} // Add transition for all animations
+                            >
+                              {renderUserAvatar()}
+                            </motion.button>
                       </motion.div>
                   )}
                 </AnimatePresence>
@@ -226,7 +245,7 @@ const Header: React.FC = () => {
                 <AnimatePresence>
                   {menuOpen && !isLoading && (
                     <motion.div
-                      layout   // ✅ add this
+                      layout
                       initial={{ opacity: 0, y: 15, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 15, scale: 0.95, transition: { duration: 0.15, ease: 'easeIn' } }}
@@ -287,8 +306,8 @@ const Header: React.FC = () => {
                 <ul className="space-y-2">
                   {navLinks.map(link => (
                     <li key={link.to}>
-                      <NavLink 
-                        to={link.to} 
+                      <NavLink
+                        to={link.to}
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={({isActive}) => `flex items-center gap-4 p-3 rounded-lg transition-colors text-base font-medium ${isActive ? 'bg-blue-500/10 text-white' : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'}`}
                       >
