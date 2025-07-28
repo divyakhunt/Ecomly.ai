@@ -256,6 +256,7 @@ a.download = `Ecomly-${fileDetails?.name || 'labels'}`;
                 
                 <div className="mt-2">
                     <motion.button
+                        data-umami-event="Shipping Label Cropper Button"
                         onClick={cropPdf}
                         disabled={!pdfFile || isLoading}
                         className="w-full flex items-center justify-center gap-2.5 py-3.5 px-4 font-bold text-white rounded-lg transition-all duration-300 disabled:cursor-not-allowed bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 disabled:from-slate-600 disabled:to-slate-700 shadow-lg hover:shadow-blue-500/20"
@@ -302,6 +303,7 @@ a.download = `Ecomly-${fileDetails?.name || 'labels'}`;
                                     <h3 className="text-lg font-semibold text-slate-100 mt-2">Success!</h3>
                                     <p className="text-slate-400 text-sm mt-1 mb-4">Generated {result.pageCount} cropped {result.pageCount === 1 ? 'label' : 'labels'}.</p>
                                     <motion.button
+                                        data-umami-event="Download Labeled Cropped PDF Button"
                                         onClick={downloadPdf}
                                         className="bg-green-600 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-green-700 transition-all duration-300 flex items-center justify-center gap-2 mx-auto shadow-lg hover:shadow-green-500/20"
                                         whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}

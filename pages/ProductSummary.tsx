@@ -135,6 +135,7 @@ const ProductSummary: React.FC = () => {
               onChange={(e) => handleImageChange(e.target.files?.[0])}
             />
             <motion.button
+              data-umami-event="Summary Generator Button"
               onClick={generateSummary}
               disabled={!imageFile || isLoading}
               whileHover={{ scale: !imageFile || isLoading ? 1 : 1.05 }}

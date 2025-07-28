@@ -156,6 +156,7 @@ const Chatbot: React.FC = () => {
             </div>
             <motion.button
               type="submit"
+              data-umami-event="Chatbot Message Sending Button"
               disabled={isLoading || !input.trim()}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}

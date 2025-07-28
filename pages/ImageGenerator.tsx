@@ -146,7 +146,7 @@ const ImageGenerator: React.FC = () => {
               </div>
             </div>
             
-            <motion.button type="submit" disabled={isLoading || !prompt.trim()} whileHover={{scale: isLoading || !prompt.trim() ? 1 : 1.05}} whileTap={{scale: isLoading || !prompt.trim() ? 1 : 0.98}} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-slate-600 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <motion.button type="submit" data-umami-event="Image Generator Button" disabled={isLoading || !prompt.trim()} whileHover={{scale: isLoading || !prompt.trim() ? 1 : 1.05}} whileTap={{scale: isLoading || !prompt.trim() ? 1 : 0.98}} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-slate-600 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
               <Icon name="sparkles" className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
               {isLoading ? 'Generating Image...' : 'Generate Image'}
             </motion.button>
@@ -195,6 +195,7 @@ const ImageGenerator: React.FC = () => {
           <AnimatePresence>
             {generatedImage && !isLoading && (
               <motion.button
+                  data-umami-event="Download Image Generator Button"
                   onClick={downloadImage}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

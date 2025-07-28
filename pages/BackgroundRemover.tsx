@@ -203,7 +203,7 @@ const BackgroundRemover: React.FC = () => {
               )}
             </motion.div>
              <input ref={fileInputRef} id="bg-file-upload" type="file" accept="image/png,image/jpeg,image/webp,image/heic,image/heif" className="hidden" onChange={handleImageChange} />
-             <motion.button onClick={removeBackground} disabled={!originalImage || isLoading} whileHover={{scale: !originalImage || isLoading ? 1 : 1.05}} whileTap={{scale: !originalImage || isLoading ? 1 : 0.98}} className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:bg-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+             <motion.button data-umami-event="Background Remover Button" onClick={removeBackground} disabled={!originalImage || isLoading} whileHover={{scale: !originalImage || isLoading ? 1 : 1.05}} whileTap={{scale: !originalImage || isLoading ? 1 : 0.98}} className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:bg-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2">
               <Icon name="sparkles" className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
               {isLoading ? 'Processing...' : 'Remove Background'}
             </motion.button>
@@ -245,7 +245,7 @@ const BackgroundRemover: React.FC = () => {
                       <button onClick={() => setBgColor('#FFFFFF')} className="px-3 py-1.5 border border-slate-600 rounded-md text-sm text-slate-300 hover:bg-slate-700 transition-colors">White</button>
                       <button onClick={() => setBgColor('#000000')} className="px-3 py-1.5 border border-slate-600 rounded-md text-sm text-slate-300 hover:bg-slate-700 transition-colors">Black</button>
                   </div>
-                  <motion.button onClick={downloadImage} whileHover={{scale: 1.05}} whileTap={{scale:0.98}} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+                  <motion.button data-umami-event="Download Background remover button" onClick={downloadImage} whileHover={{scale: 1.05}} whileTap={{scale:0.98}} className="bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
                     <Icon name="download" className="w-5 h-5" /> Download
                   </motion.button>
                 </motion.div>

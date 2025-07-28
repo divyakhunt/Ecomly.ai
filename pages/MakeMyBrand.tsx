@@ -179,7 +179,7 @@ const MakeMyBrand: React.FC = () => {
             </div>
 
             {/* Generate Button */}
-            <motion.button type="submit" disabled={isLoading || !logoFile || !prompt.trim()} whileHover={{scale: isLoading || !logoFile || !prompt.trim() ? 1 : 1.05}} whileTap={{scale: isLoading || !logoFile || !prompt.trim() ? 1 : 0.98}} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-slate-600 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <motion.button type="submit" data-umami-event="MakeMyBrand Button" disabled={isLoading || !logoFile || !prompt.trim()} whileHover={{scale: isLoading || !logoFile || !prompt.trim() ? 1 : 1.05}} whileTap={{scale: isLoading || !logoFile || !prompt.trim() ? 1 : 0.98}} className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-slate-600 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
               <Icon name="sparkles" className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
               {isLoading ? 'Generating Mockup...' : 'Generate Mockup'}
             </motion.button>
@@ -224,6 +224,7 @@ const MakeMyBrand: React.FC = () => {
            <AnimatePresence>
             {generatedImage && !isLoading && (
               <motion.button
+                data-umami-event="Download MakeMyBrand Image Button"
                   onClick={downloadImage}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
