@@ -122,8 +122,7 @@ npm run dev
 
 ## 👤 Author
 
-**Divya Khunt**  
-🚀 Full Stack Developer & AI Engineer  
+**Divya Khunt**   
 🔗 [GitHub Profile](https://github.com/divyakhunt)  
 🌐 [Live Demo – Ecomly](https://ecomly.vercel.app)
 
@@ -131,6 +130,7 @@ npm run dev
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — feel free to use, modify, and distribute it for personal or commercial purposes.  
-If you like it, feel free to ⭐️ the repo and use it in your own projects!  
-For more details, see the [LICENSE](./LICENSE) file.
+This project is licensed under the **MIT License** — free to use, share, and modify!  
+If you found this project helpful or inspiring, give it a ⭐️ on GitHub and feel free to use it in your own work.
+
+> Let’s build smarter tools together — happy coding!
