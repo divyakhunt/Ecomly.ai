@@ -145,6 +145,7 @@ const createGeminiService = () => {
     };
 
     // --- IMAGE GENERATOR SERVICE ---
+    // curruntly not using this service, but keeping it for future use.
     const generateImage = async (prompt: string): Promise<string> => {
         const apiCall = () => getAi().models.generateImages({
             model: 'imagen-3.0-generate-002',
