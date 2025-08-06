@@ -83,6 +83,12 @@ const SignUp: React.FC = () => {
     try {
         sessionStorage.setItem('authRedirectPath', '/');
         await googleSignIn();
+
+        // Get redirect path from session storage or default to home
+        const redirectPath = sessionStorage.getItem('authRedirectPath') || '/';
+        sessionStorage.removeItem('authRedirectPath'); // Optional: clean up
+        navigate(redirectPath, { replace: true });
+
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred during Google sign-in.';
         addToast(errorMessage, 'error');
