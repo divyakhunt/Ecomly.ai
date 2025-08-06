@@ -83,7 +83,7 @@ const SignUp: React.FC = () => {
     try {
         sessionStorage.setItem('authRedirectPath', '/');
         await googleSignIn();
-        addToast('Account created successfully!', 'success');
+        addToast('Signed up with Google successfully!', 'success');
 
         // Get redirect path from session storage or default to home
         const redirectPath = sessionStorage.getItem('authRedirectPath') || '/';
