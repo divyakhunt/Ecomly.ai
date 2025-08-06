@@ -24,7 +24,34 @@ const SignIn: React.FC = () => {
       addToast('Welcome back!', 'success');
       navigate(redirectPath, { replace: true });
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+      let errorMessage = 'An unknown error occurred.';
+      if (error instanceof Error) {
+        if (error.message.includes('auth/email-already-in-use')) {
+          errorMessage = 'An account with this email already exists.';
+        } else if (error.message.includes('auth/invalid-credential')) {
+          errorMessage = 'Invalid or expired credentials. Please try again.';
+        } else if (error.message.includes('auth/invalid-email')) {
+          errorMessage = 'Please enter a valid email address.';
+        } else if (error.message.includes('auth/weak-password')) {
+          errorMessage = 'Password must be at least 6 characters long.';
+        } else if (error.message.includes('auth/network-request-failed')) {
+          errorMessage = 'Network error. Please check your internet connection.';
+        } else if (error.message.includes('auth/internal-error')) {
+          errorMessage = 'Internal server error. Please try again later.';
+        } else if (error.message.includes('auth/operation-not-allowed')) {
+          errorMessage = 'Sign up is currently disabled. Please contact support.';
+        } else if (error.message.includes('auth/user-not-found')) {
+          errorMessage = 'No account found with this email.';
+        } else if (error.message.includes('auth/wrong-password')) {
+          errorMessage = 'Incorrect password.';
+        } else if (error.message.includes('auth/too-many-requests')) {
+          errorMessage = 'Too many failed attempts. Please try again later.';
+        } else if (error.message.includes('auth/popup-closed-by-user')) {
+          errorMessage = 'Google sign-in was cancelled.';
+        } else {
+          errorMessage = error.message;
+        }
+      }
       addToast(errorMessage, 'error');
       setIsLoading(false);
     }
