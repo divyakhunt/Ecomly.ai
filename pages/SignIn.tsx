@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
         if (error.message.includes('auth/email-already-in-use')) {
           errorMessage = 'An account with this email already exists.';
         } else if (error.message.includes('auth/invalid-credential')) {
-          errorMessage = 'Invalid or expired credentials. Please try again.';
+          errorMessage = 'Invalid email or password. Please try again.';
         } else if (error.message.includes('auth/invalid-email')) {
           errorMessage = 'Please enter a valid email address.';
         } else if (error.message.includes('auth/weak-password')) {
